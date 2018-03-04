@@ -1,0 +1,94 @@
+Copyright (C) 2013, Cepstral LLC.  All rights reserved.
+http://www.cepstral.com
+
+------------------------------------------------------------------------
+With appreciation to Arsen Chaloyan, Cepstral engineers made some minor 
+changes to the Cepstral plugin facilitating SWIFT integration for 
+UniMRCP v1.1.0.  This version of Cepstral plugin is NOT backwards 
+compatible with earlier UniMRCP products. 
+
+Note: There are totally 4 changes made in the mrcp_swift.c.
+
+1. In the "mrcp_swift_engine_open" function, 
+replaced "return TRUE;" to "return mrcp_engine_open_respond(engine,TRUE);"
+
+2. In the "mrcp_swift_engine_close" function,
+replaced "return TRUE;" to "return mrcp_engine_close_respond(engine);"
+
+3. In the "mrcp_swift_channel_params_set" function, changed
+apt_log(APT_LOG_MARK,APT_PRIO_DEBUG,"Swift Param %s=%s",name,generic_header->content_type);
+to
+apt_log(APT_LOG_MARK,APT_PRIO_DEBUG,"Swift Param %s=%s",name,generic_header->content_type.buf);
+
+also, changed
+apt_log(APT_LOG_MARK,APT_PRIO_DEBUG,"Swift Param %s=%s",name,generic_header->content_encoding);
+to
+apt_log(APT_LOG_MARK,APT_PRIO_DEBUG,"Swift Param %s=%s",name,generic_header->content_encoding.buf);
+
+4. In the "search_criteria_delimiter_add" function, 
+changed "search_criteria[1] = '&';" to "search_criteria[1] = ';';"
+
+
+This document provides a diff log.
+---------------------------------------------------------------------------
+2c2
+<  * Copyright 2008-2013 Arsen Chaloyan
+---
+>  * Copyright 2008-2010 Arsen Chaloyan
+189,191c189
+< 	/* Cepstral made this change to comply with the current uniMRCP APIs */
+< 	//return TRUE;
+< 	return mrcp_engine_open_respond(engine,TRUE);
+---
+> 	return TRUE;
+205,207c203
+< 	/* Cepstral made this change to comply with the current uniMRCP APIs */
+< 	//return TRUE;
+< 	return mrcp_engine_close_respond(engine);
+---
+> 	return TRUE;
+414a411,412
+>
+>
+506c504
+< //if 0
+---
+> #if 0
+511c509
+< //endif
+---
+> #endif
+523,525c521
+< 		/* Cepstral made this change to comply with the current SWIFT APIs */
+< 		//search_criteria[1] = '&';
+< 		search_criteria[1] = ';';
+---
+> 		search_criteria[1] = '&';
+585,586d580
+< 		apt_log(APT_LOG_MARK,APT_PRIO_INFO,"Find Swift Voice [%s]", voice);
+< 
+594c588,589
+< 			apt_log(APT_LOG_MARK,APT_PRIO_INFO,"Set Swift Voice [%s]", swift_voice_get_attribute(voice, "name"));
+---
+> 			apt_log(APT_LOG_MARK,APT_PRIO_INFO,"Set Swift Voice [%s]",
+> 				swift_voice_get_attribute(voice, "name"));
+602d596
+< 	apt_log(APT_LOG_MARK,APT_PRIO_INFO,"mrcp_swift_channel_voice_set");
+606,607d599
+< 
+< 
+647a640
+>
+689,691c682
+< 			/* Cepstral made this change to comply with the current uniMRCP APIs */
+< 			//apt_log(APT_LOG_MARK,APT_PRIO_DEBUG,"Swift Param %s=%s",name,generic_header->content_type);
+< 			apt_log(APT_LOG_MARK,APT_PRIO_DEBUG,"Swift Param %s=%s",name,generic_header->content_type.buf);
+---
+> 			apt_log(APT_LOG_MARK,APT_PRIO_DEBUG,"Swift Param %s=%s",name,generic_header->content_type);
+696,698c687
+< 			/* Cepstral made this change to comply with the current uniMRCP APIs */\
+< 			//apt_log(APT_LOG_MARK,APT_PRIO_DEBUG,"Swift Param %s=%s",name,generic_header->content_encoding);
+< 			apt_log(APT_LOG_MARK,APT_PRIO_DEBUG,"Swift Param %s=%s",name,generic_header->content_encoding.buf);
+---
+> 			apt_log(APT_LOG_MARK,APT_PRIO_DEBUG,"Swift Param %s=%s",name,generic_header->content_encoding);
+

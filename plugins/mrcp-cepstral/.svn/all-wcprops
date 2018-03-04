@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/!svn/ver/1474/trunk/plugins/mrcp-cepstral
+END
+mrcpcepstral.vcproj
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/1348/trunk/plugins/mrcp-cepstral/mrcpcepstral.vcproj
+END
+Makefile.am
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/494/trunk/plugins/mrcp-cepstral/Makefile.am
+END
