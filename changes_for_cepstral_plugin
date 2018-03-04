@@ -1,0 +1,84 @@
+changes needed for cepstral plugin:
+1.mrcp_swift.c(minor changes in logger and channel creation file)
+2.change in acinclude.m4
+3.add cepstral plugin related part in new configure.ac
+	->check how they add plugin in version 1.5.0
+	->there are major changes in configure.ac file
+4.might need to change in swift.m4 (not sure need to analyze more)
+5.changes in Makefile.am to add cepstral plugin support
+
+->check chnages in API's for version 1.5
+->install APR,APR_UTILS,libsofia-sip-ua-dev
+
+
+
+./../bin/unimrcpserver 
+2018-03-04 19:11:33:478130 [NOTICE] UniMRCP Server [1.5.0]
+2018-03-04 19:11:33:478236 [INFO]   APR [1.5.2]
+2018-03-04 19:11:33:478253 [NOTICE] Create MRCP Server
+2018-03-04 19:11:33:478289 [NOTICE] Open Config File [/usr/local/unimrcp/conf/unimrcpserver.xml]
+2018-03-04 19:11:33:479106 [INFO]   Set Property ip:127.0.1.1
+2018-03-04 19:11:33:479130 [INFO]   Register Codec [PCMU]
+2018-03-04 19:11:33:479139 [INFO]   Register Codec [PCMA]
+2018-03-04 19:11:33:479146 [INFO]   Register Codec [L16]
+2018-03-04 19:11:33:479164 [NOTICE] Register Resource [speechsynth]
+2018-03-04 19:11:33:479199 [NOTICE] Register Resource [speechrecog]
+2018-03-04 19:11:33:479216 [NOTICE] Register Resource [recorder]
+2018-03-04 19:11:33:479226 [NOTICE] Register Resource [speakverify]
+2018-03-04 19:11:33:479239 [INFO]   Register Resource Factory
+2018-03-04 19:11:33:479277 [NOTICE] Create SofiaSIP Agent [SIP-Agent-1] [1.12.11-234-gd74df2e] sip:127.0.1.1:8060;transport=udp,tcp
+2018-03-04 19:11:33:479295 [INFO]   Register Signaling Agent [SIP-Agent-1]
+2018-03-04 19:11:33:479326 [NOTICE] Create RTSP Server [RTSP-Agent-1] 127.0.1.1:1554 [100] connection timeout [600 sec]
+2018-03-04 19:11:33:479414 [INFO]   Register Signaling Agent [RTSP-Agent-1]
+2018-03-04 19:11:33:479437 [NOTICE] Create MRCPv2 Agent [MRCPv2-Agent-1] 127.0.1.1:1544 [100]
+2018-03-04 19:11:33:479496 [INFO]   Register Connection Agent [MRCPv2-Agent-1]
+2018-03-04 19:11:33:479516 [NOTICE] Create Media Engine [Media-Engine-1]
+2018-03-04 19:11:33:479539 [INFO]   Register Media Engine [Media-Engine-1]
+2018-03-04 19:11:33:479558 [NOTICE] Create RTP Termination Factory 127.0.1.1:[5000,6000]
+2018-03-04 19:11:33:479571 [INFO]   Register RTP Termination Factory [RTP-Factory-1]
+2018-03-04 19:11:33:479593 [INFO]   Load Plugin [Demo-Synth-1] [/usr/local/unimrcp/plugin/demosynth.so]
+2018-03-04 19:11:33:479757 [INFO]   Register MRCP Engine [Demo-Synth-1]
+2018-03-04 19:11:33:479780 [INFO]   Load Plugin [Demo-Recog-1] [/usr/local/unimrcp/plugin/demorecog.so]
+2018-03-04 19:11:33:479927 [INFO]   Register MRCP Engine [Demo-Recog-1]
+2018-03-04 19:11:33:479948 [INFO]   Load Plugin [Demo-Verifier-1] [/usr/local/unimrcp/plugin/demoverifier.so]
+2018-03-04 19:11:33:480084 [INFO]   Register MRCP Engine [Demo-Verifier-1]
+2018-03-04 19:11:33:480105 [INFO]   Load Plugin [Recorder-1] [/usr/local/unimrcp/plugin/mrcprecorder.so]
+2018-03-04 19:11:33:480223 [INFO]   Register MRCP Engine [Recorder-1]
+2018-03-04 19:11:33:480244 [INFO]   Load Plugin [Cepstral-1] [/usr/local/unimrcp/plugin/mrcpcepstral.so]
+2018-03-04 19:11:33:481692 [INFO]   Register MRCP Engine [Cepstral-1]
+2018-03-04 19:11:33:481731 [INFO]   Register RTP Settings [RTP-Settings-1]
+2018-03-04 19:11:33:481753 [NOTICE] Create MRCPv2 Profile [uni2]
+2018-03-04 19:11:33:481775 [INFO]   Assign MRCP Engine [speechsynth] [Cepstral-1]
+2018-03-04 19:11:33:481787 [INFO]   Assign MRCP Engine [speechrecog] [Demo-Recog-1]
+2018-03-04 19:11:33:481799 [INFO]   Assign MRCP Engine [recorder] [Recorder-1]
+2018-03-04 19:11:33:481812 [INFO]   Assign MRCP Engine [speakverify] [Demo-Verifier-1]
+2018-03-04 19:11:33:481822 [INFO]   Register Profile [uni2]
+2018-03-04 19:11:33:481833 [NOTICE] Create MRCPv1 Profile [uni1]
+2018-03-04 19:11:33:481843 [INFO]   Assign MRCP Engine [speechsynth] [Cepstral-1]
+2018-03-04 19:11:33:481851 [INFO]   Assign MRCP Engine [speechrecog] [Demo-Recog-1]
+2018-03-04 19:11:33:481860 [INFO]   Assign MRCP Engine [recorder] [Recorder-1]
+2018-03-04 19:11:33:481869 [INFO]   Assign MRCP Engine [speakverify] [Demo-Verifier-1]
+2018-03-04 19:11:33:481881 [INFO]   Register Profile [uni1]
+2018-03-04 19:11:33:481897 [INFO]   Start Task [MRCP Server]
+>2018-03-04 19:11:33:482028 [INFO]   Open Engine [Demo-Verifier-1]
+2018-03-04 19:11:33:482059 [INFO]   Start Task [Demo Verifier Engine]
+2018-03-04 19:11:33:482169 [INFO]   Open Engine [Cepstral-1]
+2018-03-04 19:11:33:482187 [INFO]   Open Swift Engine [6.0.1-Released]
+2018-03-04 19:11:33:483120 [INFO]   Swift Available Voices:
+2018-03-04 19:11:33:483153 [INFO]   Allison-8kHz: Female, age 28, US English, 8000Hz, 6.0.0, unlicensed
+2018-03-04 19:11:33:483202 [INFO]   Open Engine [Demo-Recog-1]
+2018-03-04 19:11:33:483220 [INFO]   Start Task [Demo Recog Engine]
+2018-03-04 19:11:33:483305 [INFO]   Open Engine [Recorder-1]
+2018-03-04 19:11:33:483324 [INFO]   Open Engine [Demo-Synth-1]
+2018-03-04 19:11:33:483339 [INFO]   Start Task [Demo Synth Engine]
+2018-03-04 19:11:33:483402 [INFO]   Start Task [SIP-Agent-1]
+2018-03-04 19:11:33:483433 [INFO]   Start Task [RTSP-Agent-1]
+2018-03-04 19:11:33:483476 [INFO]   Start Task [MRCPv2-Agent-1]
+2018-03-04 19:11:33:483625 [INFO]   Start Task [Media-Engine-1]
+2018-03-04 19:11:33:484553 [NOTICE] MRCP Server Started
+
+
+
+
+
+
